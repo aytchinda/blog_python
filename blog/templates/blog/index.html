@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+  <h1>{{ title }}</h1>
+
+  <h2>Liste des articles </h2>
+  <div class="row">
+
+    {% include "blog/components/paginator.html" with datas=posts %}
+
+       {% for post in posts %}
+      <div class="col-md-3">
+        <div class="card">
+          <img src="http://placehold.it/300X300" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <a href="{% url 'single_post' post.slug %}" class="btn btn-primary">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  {% include "blog/components/paginator.html" with datas=posts %}
+
+{% endblock %}
