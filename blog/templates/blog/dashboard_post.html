@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content  %}
+
+
+<div class="row py-2">
+    <div class="col-md-2">
+        <h1>Dashboard</h1> 
+    </div>
+
+    <div class="col-md-10">
+      {% include "blog/components/paginator.html" with datas=posts %}
+
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Created_at</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for post  in posts %}
+               <tr>
+                  <th scope="row">{{ post.id}}</th>
+                  <td>{{post.title}}</td>
+                  <td>{{post.created_at}}</td>
+                  <td>
+                    Actions
+                  </td>
+                </tr>
+              {% endfor %}
+              
+
+            </tbody>
+          </table>
+          {% include "blog/components/paginator.html" with datas=posts %}
+
+    </div>
+</div>
+
+
+
+
+    
+{% endblock  %}

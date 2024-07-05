@@ -49,3 +49,20 @@ def contact(request):
         form = ContactForm()
         
     return render(request, "blog/components/contact.html" ,{"form":form})
+
+def dashboard_post(request):
+    posts = Post.objects.all()
+    
+    paginator = Paginator(posts, 8)
+    page = request.GET.get('page', 1)
+    
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    except:
+        posts = paginator.page(1)
+    
+    return render(request, "blog/dashboard_post.html", { "posts": posts,})

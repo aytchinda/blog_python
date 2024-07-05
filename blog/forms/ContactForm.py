@@ -5,11 +5,14 @@ from blog.models import Contact
 
 class ContactForm(forms.ModelForm):
     CIVILITY_CHOICES = (
-        ('Mr', 'Mr'),
+         ('Mr', 'Mr'), 
+        ('Monsieur', 'Monsieur'),
         ('Mme', 'Mme'),
-        ('Mlle', 'Mlle'),
+        ('Madame', 'Madame'),
+        ('Mlle', 'Mlle'), 
+        ('Mademoiselle', 'Mademoiselle'),
     )
-
+    civility = forms.ChoiceField(choices=CIVILITY_CHOICES, widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 95%;'}))
     class Meta:
         model = Contact
         fields = ('civility', 'name', 'email', 'subject', 'message', 'file')
