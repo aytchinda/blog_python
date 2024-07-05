@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from blog.models import Category, Tag, Post, Comment
 from blog.forms.ContactForm import ContactForm  # Importer le formulaire
+from blog.forms.PostForm import PostForm  # Importer le formulaire
 from django.contrib import messages
 
 # Create your views here.
@@ -65,4 +66,14 @@ def dashboard_post(request):
     except:
         posts = paginator.page(1)
     
-    return render(request, "blog/dashboard_post.html", { "posts": posts,})
+    return render(request, "blog/dashboard/post_index.html", { "posts": posts,})
+
+def dashboard_post_view(request,slug):
+    post =  get_object_or_404(Post, slug=slug)
+    return render(request, "blog/dashboard/post_view.html",{"post": post})
+
+def dashboard_post_new(request):
+    form = PostForm()
+    return render(request, "blog/dashboard/post_new.html",{ "form": form})
+
+    

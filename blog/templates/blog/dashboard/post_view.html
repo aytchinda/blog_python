@@ -1,8 +1,10 @@
-{% extends "blog/base.html" %}
+{% extends "blog/admin.html" %}
+{% load static %}
 
 {% block content  %}
 
-<h1> {{ post.title | title}} </h1>
+
+<h2> {{ post.title | title}} </h2>
 
 <div class="post-img">
     <div class="img-fluid">

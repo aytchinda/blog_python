@@ -1,0 +1,41 @@
+{% extends "blog/admin.html" %}
+{% load static %}
+
+{% block content  %}
+
+{% include "blog/components/paginator.html" with datas=posts %}
+
+<div class="d-fex">
+  <a href="{% url 'dashboard_post_new' %}" class="btn btn-success">Create Post</a>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Created_at</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+       <tr>
+          <th scope="row">{{ post.id }}</th>
+          <td>{{ post.title }}</td>
+          <td>{{ post.created_at }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <a href="{% url 'dashboard_post_view' post.slug %}" class="btn btn-success">View</a>
+              <button class="btn btn-primary">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+{% include "blog/components/paginator.html" with datas=posts %}
+
+{% endblock %}
