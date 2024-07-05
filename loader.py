@@ -9,6 +9,7 @@ def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
     django.setup()
+    
     try:
         from django.contrib.auth.models import User
         from blog.models import Category, Tag, Post
@@ -54,9 +55,9 @@ def main():
                                             ) 
             post.tags.set(random.sample(tags,random.randint (1, 5)))
     
-        # create_users(20)
-        # create_tags(7)
-        # create_categories(10)
+        create_users(20)
+        create_tags(7)
+        create_categories(10)
         # create_posts(100)
         
         

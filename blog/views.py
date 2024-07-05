@@ -73,7 +73,28 @@ def dashboard_post_view(request,slug):
     return render(request, "blog/dashboard/post_view.html",{"post": post})
 
 def dashboard_post_new(request):
-    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Votre article a bien été crée")
+            return redirect('dashboard_post')
+    else: 
+        form = PostForm()
     return render(request, "blog/dashboard/post_new.html",{ "form": form})
 
+def dashboard_post_edit (request,slug):
+    
+    if request.method == 'PUT':
+        form = PostForm(request.PUT, instance=Post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Votre article a bien été modifie")
+            return redirect('dashboard_post')
+    else:
+        post =  get_object_or_404(Post, slug=slug)
+    form = PostForm(instance=post)
+    return render(request, "blog/dashboard/post_new.html",{ "form": form , "post": post})
+
+    
     
