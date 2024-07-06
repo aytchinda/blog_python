@@ -15,10 +15,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     #OneToMany, ManyToOne
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    
     is_published = models.BooleanField(default=False)
     tags = models.ManyToManyField('Tag')
-    
+    image = models.ImageField(upload_to='posts/%Y/%m/%d', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
