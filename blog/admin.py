@@ -5,16 +5,26 @@ from django.utils.html import format_html
 from blog.models import Category, Tag, Post, Comment, Contact, Profile
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'author', 'category', 'is_published', 'created_at', 'updated_at','display_tags_count', 'display_actions')
+    list_display = ('id', 'display_title', 'author', 'category', 'is_published', 'created_at', 'updated_at','display_tags_count', 'display_actions')
     list_filter = ('is_published', 'category', 'tags')
-    list_editable = ('is_published',)
+    # list_editable = ('is_published',)
     list_per_page = 10
     list_max_show_all = 100
     search_fields = ('title', 'content', 'author__username', 'category__name')
 
     def display_tags_count(self, post):
         return post.tags.count()
-    
+   
+    def display_title(self, post):
+        no_icon = '❌'
+        yes_icon = '✅'
+        if post.is_published:
+            title = '<span style = "color:green">'+ post.title +'</span>'
+            return format_html(yes_icon + title)
+        else:
+            title = '<span style = "color:red">'+ post.title +'</span>'
+            return format_html(no_icon + title)
+        
     def display_actions(self, post):
         return  format_html(
             '<a href="{}" class="addlink">View</a>&nbsp;'
@@ -27,6 +37,7 @@ class PostAdmin(admin.ModelAdmin):
     
     display_tags_count.short_description = 'Tags'
     display_actions.short_description = 'Actions'
+    display_title.short_description = 'Title'
 
 
 
