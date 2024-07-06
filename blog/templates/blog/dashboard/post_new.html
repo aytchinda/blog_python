@@ -1,8 +1,8 @@
 {% extends "blog/admin.html" %}
 {% load static %}
 
-{% block content  %}
-    <form method="post"  enctype="multipart/form-data">
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% if post %}
@@ -11,22 +11,23 @@
     
         <div class="form-group">
             <label for="title">Title : </label>
-            {{form.title}}
+            {{ form.title }}
             {% if form.title.errors %}
-                {% for error  in form.title.errors %}
+                {% for error in form.title.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
-            
+        </div> <!-- Ajout de la balise fermante manquante -->
+
         <div class="form-group">
             <label for="content">Content : </label>
-            {{form.content}}
+            {{ form.content }}
             {% if form.content.errors %}
-                {% for error  in form.content.errors %}
+                {% for error in form.content.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
@@ -34,11 +35,11 @@
 
         <div class="form-group">
             <label for="author">Author : </label>
-            {{form.author}}
+            {{ form.author }}
             {% if form.author.errors %}
-                {% for error  in form.author.errors %}
+                {% for error in form.author.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
@@ -46,11 +47,11 @@
 
         <div class="form-group">
             <label for="category">Category : </label>
-            {{form.category}}
+            {{ form.category }}
             {% if form.category.errors %}
-                {% for error  in form.category.errors %}
+                {% for error in form.category.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
@@ -58,11 +59,11 @@
 
         <div class="form-group">
             <label for="image">Image : </label>
-            {{form.image}}
+            {{ form.image }}
             {% if form.image.errors %}
-                {% for error  in form.image.errors %}
+                {% for error in form.image.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
@@ -71,12 +72,12 @@
         <div class="form-group form-check form-switch">
             <label for="is_published">Is_published : </label>
             <div class="form-check form-switch">
-                 {{form.is_published}}
+                 {{ form.is_published }}
             </div>
             {% if form.is_published.errors %}
-                {% for error  in form.is_published.errors %}
+                {% for error in form.is_published.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
@@ -84,32 +85,47 @@
 
         <div class="form-group">
             <label for="tags">Tags : </label>
-            {{form.tags}}
+            {{ form.tags }}
             {% if form.tags.errors %}
-                {% for error  in form.tags.errors %}
+                {% for error in form.tags.errors %}
                     <span class="text-danger">
-                        {{error}}
+                        {{ error }}
                     </span>
                 {% endfor %}
             {% endif %}
         </div>
 
         <div>
-        {% if post %}
-            <button class="btn btn-success my-2">Update</button>
-        {% else %}
-            <button class="btn btn-success my-2">Create</button>
-        {% endif %}         
-        <a href="{% url 'dashboard_post' %}" class="btn btn-danger my-2">Return</a>
-    </div>
+            {% if post %}
+                <button class="btn btn-success my-2">Update</button>
+            {% else %}
+                <button class="btn btn-success my-2">Create</button>
+            {% endif %}
+            <a href="{% url 'dashboard_post' %}" class="btn btn-danger my-2">Return</a>
+        </div>
         
     </form>
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        $(document).ready(function() {
-            $('select').select2();
-        });
-    </script>
-{% endblock  %}
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+<script>
+    $(document).ready(function() {
+        $('select').select2();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editorElement = document.querySelector('#id_content');
+        
+        if (editorElement) {
+            ClassicEditor
+                .create(editorElement)
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
+</script>
+{% endblock %}

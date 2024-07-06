@@ -30,7 +30,7 @@
     {% endif %}
 </div>
 <div class="post-content">
-    {{ post.content }}
+    {{ post.content | safe }}
     <a href="{% url 'home'%}" class="btn btn-primary">Home</a>
 </div>
 {% endblock  %}

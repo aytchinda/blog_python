@@ -97,4 +97,14 @@ def dashboard_post_edit(request, slug):
     
     return render(request, "blog/dashboard/post_new.html", {"form": form, "post": post})
 
-    
+def dashboard_post_delete(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if request.method == 'POST':
+        if request.POST.get('_method') == 'DELETE':
+            if post.image:
+                image_path = post.image.path
+                if(os.path.exists(image_path)):
+                    os.remove(image_path)
+            post.delete()
+            messages.success(request, "Votre article a bien été supprimé")
+    return redirect('dashboard_post')
