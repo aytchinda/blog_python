@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<h1>Login Form</h1>
+
+{% if messages  %}
+    {% for message in messages  %}
+        <div class="alert alert-succes">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+
+    <button class="btn btn-primary my-2">Login</button>
+
+</form>
+
+{% endblock  %}

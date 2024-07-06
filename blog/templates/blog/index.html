@@ -2,9 +2,8 @@
 
 {% block content %}
 
-  <h1>{{ title }}</h1>
 
-  <h2>Liste des articles </h2>
+  <h1>Liste des articles </h1>
   <div class="row">
 
     {% include "blog/components/paginator.html" with datas=posts %}
