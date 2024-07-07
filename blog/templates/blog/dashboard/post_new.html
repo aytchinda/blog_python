@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="content">Content : </label>
-            {{ form.content }}
+            <textarea id="content" name="content">{{ form.content.value }}</textarea>
             {% if form.content.errors %}
                 {% for error in form.content.errors %}
                     <span class="text-danger">
@@ -33,7 +33,7 @@
             {% endif %}
         </div>
 
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <label for="author">Author : </label>
             {{ form.author }}
             {% if form.author.errors %}
@@ -43,7 +43,7 @@
                     </span>
                 {% endfor %}
             {% endif %}
-        </div>
+        </div> {% endcomment %}
 
         <div class="form-group">
             <label for="category">Category : </label>
@@ -117,7 +117,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const editorElement = document.querySelector('#id_content');
+        const editorElement = document.querySelector('#content');
         
         if (editorElement) {
             ClassicEditor

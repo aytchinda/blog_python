@@ -15,45 +15,52 @@
   <a href="{% url 'dashboard_post_new' %}" class="btn btn-success">Create Post</a>
 </div>
 
-<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Image</th>
-        <th scope="col">Created_at</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for post in posts %}
-       <tr>
-          <th scope="row">{{ post.id }}</th>
-          <td>{{ post.title }}</td>
-          <td>
-            {% if post.image %}
-              <img src="{{ post.image }}" width="100" height="50" alt="{{ post.title }}">
-            {% else %}
-              <img src="http://placehold.it/300X300" width="100" height="50" alt="post.title">
-            {% endif %}
-          </td>
-         
-          <td>{{ post.created_at }}</td>
-          <td>
-            <div class="d-flex gap-2">
-              <a href="{% url 'dashboard_post_view' post.slug %}" class="btn btn-success">View</a>
-              <a href="{% url 'dashboard_post_edit' post.slug %}"button class="btn btn-primary">Edit</button></a>
-              <form action="{% url 'dashboard_post_delete' post.slug %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="_method" value="DELETE">
-                <button class="btn btn-danger">Delete</button>
-              </form>
-            </div>
-          </td>
+{% if posts  %}
+
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Image</th>
+          <th scope="col">Created_at</th>
+          <th scope="col">Actions</th>
         </tr>
-      {% endfor %}
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+            <th scope="row">{{ post.id }}</th>
+            <td>{{ post.title }}</td>
+            <td>
+              {% if post.image %}
+                <img src="{{ post.image.url }}" width="90" height="70" alt="{{ post.title }}">
+              {% else %}
+                <img src="http://placehold.it/300X300" width="90" height="70" alt="post.title">
+              {% endif %}
+            </td>
+          
+            <td>{{ post.created_at }}</td>
+            <td>
+              <div class="d-flex gap-2">
+                <a href="{% url 'dashboard_post_view' post.slug %}" class="btn btn-success">View</a>
+                <a href="{% url 'dashboard_post_edit' post.slug %}"button class="btn btn-primary">Edit</button></a>
+                <form action="{% url 'dashboard_post_delete' post.slug %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+{% else %}
+  <p>Vous pouvez Commencer à créer vos articles</p>
+{% endif %}
+
+
 
 {% include "blog/components/paginator.html" with datas=posts %}
 

@@ -3,7 +3,8 @@
 {% block content %}
 
 
-  <h1>Liste des articles </h1>
+<h1 style="font-size: 2em; margin-top: 30px;">Liste des articles</h1>
+
   
   {% include "blog/components/messages.html" with messages=messages %}
 
@@ -15,7 +16,7 @@
       <div class="col-md-3">
         <div class="card m-1">
 
-          <img src="{% if post.image %}{{ post.image.url }}{% else %}http://placehold.it/300x300{% endif %}" class="card-img-top" alt="...">
+          <img src="{% if post.image %}{{ post.image.url }}{% else %}http://placehold.it/300x300{% endif %}" class="card-img-top" alt="..." width="400" height="300">
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <a href="{% url 'single_post' post.slug %}" class="btn btn-primary">En savoir plus</a>
