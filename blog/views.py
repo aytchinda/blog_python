@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from blog.models import Category, Tag, Post, Comment
 from blog.forms.ContactForm import ContactForm  # Importer le formulaire
@@ -51,6 +52,7 @@ def contact(request):
         
     return render(request, "blog/components/contact.html" ,{"form":form})
 
+@login_required
 def dashboard_post(request):
     posts = Post.objects.all()
     
