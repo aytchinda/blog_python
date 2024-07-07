@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from account.forms.CustomUserForm import CustomUserForm
 from account.forms.CustomUserLoginForm import CustomUserLoginForm
 from django.contrib import messages
@@ -38,4 +38,7 @@ def login_user(request):
     return render(request, "account/login.html", {"form": form})
 
 def logout_user(request):
-    pass
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, "You are logged out!")
+    return redirect('home')

@@ -4,6 +4,9 @@
 
 
   <h1>Liste des articles </h1>
+  
+  {% include "blog/components/messages.html" with messages=messages %}
+
   <div class="row">
 
     {% include "blog/components/paginator.html" with datas=posts %}
